@@ -21,20 +21,20 @@ class Environment:
         return np.argwhere(self.board == 0)
     
     def get_state_hash(self, state):
-        state_hash = 0
+        hash_val = 0
         product = np.multiply(state, self.state_hash_matrix)
         state_hash = np.sum(product)
-        # print("Product: ",product)
-        # print("State Hash: ",state_hash)
-        return state_hash
+        return hash_val
 
-    def get_action_hash(self, actions):
-        hash_list = []
-        for action in actions:
-            x_val = action[0]
-            y_val = action[1]
-            hash_list.append(self.action_hash_matrix[x_val][y_val])
-        return hash_list
+    def get_action_hash(self, action):
+        hash_val = 0
+        x_val = action[0]
+        y_val = action[1]
+        hash_val = self.action_hash_matrix[x_val][y_val]
+        return hash_val
+    
+    def get_state_action_hash(self, state, action):
+        return state * action
 
     def check_game_end():
         pass

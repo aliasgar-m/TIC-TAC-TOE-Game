@@ -1,14 +1,16 @@
 #! /usr/bin/env python
 from environment import Environment
+from train import Trainer
 import numpy as np
 import random
 
 
 class Agent():
     def __init__(self, env: Environment, sym: int):
+        self.trainer = Trainer(env)
         self.env = env
         self.symbol = sym
-        self.epsilon = 1.0
+        self.epsilon = 0.5
 
     def step(self):
         current_state = self.env.get_current_state()
@@ -25,17 +27,18 @@ class Agent():
         return act
     
     def get_random_action(self, actions):
+        print("Random action")
         return random.choice(actions)
 
     def get_best_action(self, state, actions):
-        state_hash = self.env.get_state_hash(state)
-        av_action_hash = self.env.get_action_hash(actions)
-        return "Best choice selected"
+        print("Best Action")
+        act = self.trainer.get_best_exploit_move(state, actions)
+        return act
 
     def perform_action(self, curr_state, action):
-        x = action[0]
-        y = action[1]
-        curr_state[x][y] = curr_state[x][y] + self.symbol
+        x_val = action[0]
+        y_val = action[1]
+        curr_state[x_val][y_val] = curr_state[x_val][y_val] + self.symbol
 
     def reset_agent(self):
         pass
@@ -51,6 +54,6 @@ if __name__ == "__main__":
     p2.step()
     print(env.board)
     p1.step()
-#     print(env.board)
+    print(env.board)
 #     p2.step()
 #     print(env.board)
