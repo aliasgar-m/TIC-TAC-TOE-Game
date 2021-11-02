@@ -1,6 +1,6 @@
-__all__ = ['agent', 'environment', 'main', 'train']
+__all__ = ['agent', 'environment', 'main', 'trainer']
 
 from src import agent
 from src import environment
 from src import main
-from src import train
+from src import trainer
