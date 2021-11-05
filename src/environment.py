@@ -92,7 +92,7 @@ class Environment:
         if self.check_row(sym, curr_state=state) or \
         self.check_col(sym, curr_state=state) or \
         self.check_diagonal(sym, curr_state=state):
-           return True
+            return True
         return False
 
     def check_row(self, sym, curr_state=None):
