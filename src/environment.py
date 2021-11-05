@@ -49,9 +49,9 @@ class Environment:
         if self.check_winner(sym, n_s) is True:
             return 1
         if self.missed_block_move(n_s, n_acts, sym) is True:
-            return -1
-        if self.missed_winning_move(p_act, sym) is True:
             return -10
+        if self.missed_winning_move(p_act, sym) is True:
+            return -100
         return 0
 
     def missed_block_move(self, n_s, n_acts, sym):
@@ -74,23 +74,25 @@ class Environment:
     def missed_winning_move(self, p_act, sym):
         curr_state = self.get_current_state()
         av_actions = self.get_available_actions(state=curr_state).tolist()
-        av_actions.remove(p_act)
+
         av_actions = np.array(av_actions)
         for each_action in av_actions:
-            x = each_action[0]
-            y = each_action[1]
-            curr_state[x][y] = curr_state[x][y] + sym
-            win_bool = self.check_winner(sym, curr_state)
+            if each_action.tolist() != p_act.tolist():
+                x = each_action[0]
+                y = each_action[1]
+                n_s_copy = copy(curr_state)
+                n_s_copy[x][y] = n_s_copy[x][y] + sym
+                win_bool = self.check_winner(sym, n_s_copy)
 
-            if win_bool is True:
-                return True
+                if win_bool is True:
+                    return True
         return False
 
     def check_winner(self, sym, state=None):
         if self.check_row(sym, curr_state=state) or \
-           self.check_col(sym, curr_state=state) or \
-           self.check_diagonal(sym, curr_state=state):
-            return True
+        self.check_col(sym, curr_state=state) or \
+        self.check_diagonal(sym, curr_state=state):
+           return True
         return False
 
     def check_row(self, sym, curr_state=None):
