@@ -71,19 +71,20 @@ class Environment:
                 return True
         return False
 
-    # def missed_winning_move(self, p_act, sym):
-    #     curr_state = self.get_current_state()
-    #     av_actions = self.get_available_actions(state=curr_state)
-    #     av_actions.remove()
-    #     for each_action in av_actions:
-    #         x = each_action[0]
-    #         y = each_action[1]
-    #         curr_state[x][y] = curr_state[x][y] + sym
-    #         win_bool = self.check_winner(sym, curr_state)
+    def missed_winning_move(self, p_act, sym):
+        curr_state = self.get_current_state()
+        av_actions = self.get_available_actions(state=curr_state).tolist()
+        av_actions.remove(p_act)
+        av_actions = np.array(av_actions)
+        for each_action in av_actions:
+            x = each_action[0]
+            y = each_action[1]
+            curr_state[x][y] = curr_state[x][y] + sym
+            win_bool = self.check_winner(sym, curr_state)
 
-    #         if win_bool is True:
-    #         return True
-    #     return False
+            if win_bool is True:
+                return True
+        return False
 
     def check_winner(self, sym, state=None):
         if self.check_row(sym, curr_state=state) or \
