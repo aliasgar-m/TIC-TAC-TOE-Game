@@ -123,6 +123,8 @@ class Environment:
         if player is not None:
             self.summary["Games Played: "] += 1
             if player.symbol == 1:
+                player.wins += 1
                 self.summary["Player 1 wins: "] += 1
             else:
+                player.wins += 1
                 self.summary["Player 2 wins: "] += 1
