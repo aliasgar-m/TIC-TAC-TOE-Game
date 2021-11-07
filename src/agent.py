@@ -12,6 +12,7 @@ class Agent:
         self.env = env
         self.symbol = sym
         self.action_history = []
+        self.wins = 0
         self.epsilon = 0.4
 
     def step(self) -> None:
