@@ -1,0 +1,30 @@
+* {
+    justify-content: center;
+    text-align: center;
+    font-size: 50px;
+    font-family: cursive;
+}
+
+.title {
+    display: flex;
+    margin-top: 150px;
+}
+
+body {
+    color: goldenrod;
+    background: black;
+}
+
+.play, .info, .about {
+    margin: 30px;
+}
+
+.play:hover, .info:hover, .about:hover {
+    cursor: pointer;
+    color: white;
+}
+
+a {
+    color: unset;
+    text-decoration: none;
+}

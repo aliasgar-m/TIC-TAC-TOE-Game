@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/home_page.css">
+    <title>Home Page</title>
+</head>
+<body>
+    <h1 class="title">Let's Play TIC-TAC-TOE</h1>
+    <div class="play">
+        <a href="{{url_for('play_game')}}">Play</a>
+    </div>
+    <div class="info">
+        <a href="{{url_for('info_page')}}">Info</a>
+    </div>
+    <div class="about">
+        <a href="{{url_for('about_page')}}">About</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+.container {
+    margin: 50px;
+    padding: 50px;
+    border-radius: 50px;
+
+}
+
+body {
+    background:rgb(0, 0, 0);
+    color:darkgoldenrod;
+    display: flex;
+    font-family:'Courier New';
+    justify-content: center;
+}
+
+.title {
+    text-align: center;
+}
+
+.status-summary-reset {
+    display: flex;
+    font-size: 15px;
+    margin-top: 25px;
+    justify-content:space-evenly;
+}
+
+.reset:hover, .summary:hover {
+    cursor: pointer;
+    color: white;
+}
+
+.game-grid {
+    display: grid;
+    background-color: darkgoldenrod;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 15px;
+    margin-top: 15px;
+}
+
+.game-cell {
+    height: 125px;
+    width: 125px;
+    background-color: black;
+    cursor: pointer;
+}
