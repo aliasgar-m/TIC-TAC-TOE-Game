@@ -7,7 +7,7 @@ from .trainer import Trainer
 
 
 class Agent:
-    def __init__(self, env:Environment, sym:int) -> None:
+    def __init__(self, env:Environment, sym:int=None) -> None:
         self.trainer = Trainer(env=env, sym=sym)
         self.env = env
         self.symbol = sym
