@@ -44,3 +44,9 @@ body {
     background-color: black;
     cursor: pointer;
 }
+
+.x::after {
+    content: '×';
+    color: red;
+    font-size: 200px;
+}
