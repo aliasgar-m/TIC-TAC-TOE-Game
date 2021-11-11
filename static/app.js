@@ -175,6 +175,7 @@ const resetBoard = () => {
 // Send a request to calculate computer move
 const calculateMove = () => {
     const data = JSON.stringify({'board':game['gameBoard'], 'computer':game['Computer'], 'player':game['Player']})
+    // console.log(data)
     const xhr = new XMLHttpRequest()
     xhr.open('POST', '/play/move')
     xhr.setRequestHeader("Content-Type","application/json");
@@ -187,12 +188,14 @@ function comMove() {
     if(this.readyState == 4 && this.status == 200) {      
         response = JSON.parse(this.responseText)
         cellNo = response['computerMove']
+        console.log(cellNo)
         if(cellNo == -1) {
             return;
         }
         const classList = cellDivs[cellNo].classList
         classList.add(game['Computer']);
         game['gameBoard'][cellNo] = game['Computer']
+        console.log(game['gameBoard'])
         game['playerTurn'] = !game['playerTurn']
         checkGameStatus()
     }

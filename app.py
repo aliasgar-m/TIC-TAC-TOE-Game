@@ -33,11 +33,11 @@ def move():
     game = Game()
     game.board = state.get('board')
     game.player = state.get('player')
-    game.computer = state.get('computer') # have doubts here
+    game.computer = state.get('computer')
 
     move = game.calculate_move()
-
-    return jsonify(computerMove=move)
+    # print(move)
+    return jsonify(computerMove=str(move))
 
 if __name__ == "__main__":
     app.run()

@@ -4,7 +4,6 @@ from src.environment import Environment
 from src.agent import Agent
 import pickle
 
-BDICT = {}
 
 def main():
     game = Environment()
