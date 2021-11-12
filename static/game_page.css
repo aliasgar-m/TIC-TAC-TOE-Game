@@ -60,6 +60,7 @@ body {
     width: 130px;
     cursor: pointer;
     background: white;
+    font-family: 'Hurricane', cursive;
 }
 
 #overlay {
@@ -86,9 +87,22 @@ body {
     -ms-transform: translate(-50%,-50%);
   }
 
+.x, .o {
+    cursor: default;
+  }
 
+.x::after {
+    content: '×';
+    color: red;
+    font-size: 200px;
+}
 
-
+.o::after {
+    content: 'o';
+    color: blue;
+    padding: 5px;
+    font-size: 125px;
+}
 
 
 
@@ -107,14 +121,6 @@ body {
     margin-top: 50px;
 }
 
-.game-cell {
-    height: 125px;
-    width: 125px;
-    display: flex;
-    background-color: black;
-    cursor: pointer;
-    font-family: 'Hurricane', cursive;
-}
 
 
 
@@ -131,9 +137,7 @@ body {
 
 
 
-/* .x, .o {
-  cursor: default;
-} */
+
 
 /* .x::after {
     content: 'X';
@@ -150,9 +154,4 @@ body {
 
 
 
-.o::after {
-    content: 'O';
-    color: blue;
-    padding: 5px;
-    font-size: 125px;
-} */
+ */

@@ -17,7 +17,6 @@ class Game:
         self.env.board[self.env.board == 'o'] = 2
         self.env.board[self.env.board == ' '] = 0
         self.env.board = self.env.board.astype(int)
-        # convert to 0.0
         
         self.agent.trainer.q_values = self.load_q_values()
         curr_state = self.agent.env.get_current_state()
@@ -25,7 +24,7 @@ class Game:
         p_action = self.agent.get_action_to_perform(c_state=curr_state, actions=available_actions)
         
         move = self.env.get_action_hash(act=p_action)
-        return move
+        return move - 1
 
     def load_q_values(self, filename='Q_values.txt'):
         with open(filename, "rb") as f:
