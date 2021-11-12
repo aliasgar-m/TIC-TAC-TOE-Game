@@ -4,6 +4,7 @@ body {
     color: white;
     font-size: 20px;
     margin-left: 50px;
+    justify-content: center;
 }
 
 .title {
@@ -24,4 +25,8 @@ body {
 
 .return:hover {
     color: white;
+}
+
+.text {
+    margin-left: 250px;
 }
