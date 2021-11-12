@@ -4,6 +4,7 @@ body {
     color: white;
     font-size: 20px;
     margin-left: 50px;
+    margin-right: 50px;
 }
 
 .title {
@@ -16,7 +17,7 @@ body {
 }
 
 .return {
-    display: inline-flex;
+    display: flex;
     font-size: 50px;
     color: goldenrod;
     cursor: pointer;
@@ -24,4 +25,8 @@ body {
 
 .return:hover {
     color: white;
+}
+
+.text {
+    margin-left: 250px;
 }
