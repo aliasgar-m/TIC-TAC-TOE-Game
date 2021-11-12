@@ -10,9 +10,21 @@ const returnDiv = document.querySelector('.return');
 const handleReturn = (e) => {
     history.back()
 }
+
+const handleSummary = (e) => {
+    document.getElementById("overlay").style.display = "block";
+    document.getElementById("overlay").style.pointerEvents = "all";
+}
+
+const handleExitSummary = (e) => {
+    document.getElementById("overlay").style.display = "none";
+}
+
+
 //event listeners
 returnDiv.addEventListener('click', handleReturn);
-
+summaryDiv.addEventListener('click', handleSummary);
+window.addEventListener('mouseup', handleExitSummary);
 
 // var game = {
 //     scorePlayer: 0,

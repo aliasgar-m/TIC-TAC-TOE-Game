@@ -1,36 +1,101 @@
-* {
+*{
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    
 }
 
 body {
     background: black;
     color: goldenrod;
-    display: flex;
+    margin: 0;
     font-family: 'Courier New';
+    display: flex;
+    justify-content: center;
 }
 
 .return {
+    justify-content: left;
     margin-left: 50px;
-    display: inline-flex;
+    display: flex;
     font-size: 50px;
     color: goldenrod;
 }
 
 .container {
-    margin-top: 50px;
+    background:white;
+    margin: 50px;
+    padding: 25px;
+    border-radius: 25px;
+    justify-content: center;
+    align-items: center;
 }
 
 .status-summary-reset {
     display: flex;
-    font-size: 25px;
-    margin-top: 15px;
+    font-size: 20px;
+    text-align: center;
     justify-content:space-evenly;
-    height: 30px;
 }
 
 .reset:hover, .summary:hover, .return:hover {
     cursor: pointer;
     color: white;
+}
+
+.game-grid {
+    background: black;
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-gap: 10px;
+    margin-top: 25px;
+}
+
+.game-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 130px;
+    width: 130px;
+    cursor: pointer;
+    background: white;
+}
+
+#overlay {
+    position: fixed;
+    display: none;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgb(0, 0, 0, .5);
+    pointer-events: none;
+    z-index: 2;
+}
+
+#text{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    font-size: 25px;
+    color: white;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+  }
+
+
+
+
+
+
+
+/* 
+
+.player-score, .com-score {
+    font-size: 17px;
 }
 
 .game-grid {
@@ -40,8 +105,6 @@ body {
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 15px;
     margin-top: 50px;
-    margin-left: 50px;
-
 }
 
 .game-cell {
@@ -50,10 +113,23 @@ body {
     display: flex;
     background-color: black;
     cursor: pointer;
-    justify-content: center;
-    align-items: center;
     font-family: 'Hurricane', cursive;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* .x, .o {
   cursor: default;
@@ -79,4 +155,4 @@ body {
     color: blue;
     padding: 5px;
     font-size: 125px;
-} */ */
+} */
