@@ -12,6 +12,12 @@ body {
     justify-content: center;
 }
 
+.return{
+    display: inline-flex;
+    font-size: 50px;
+    color: goldenrod;
+}
+
 .container {
     margin: 50px;
     padding: 50px;
