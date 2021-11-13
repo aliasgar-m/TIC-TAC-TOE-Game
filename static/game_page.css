@@ -94,16 +94,18 @@ body {
 .x::after {
     content: '×';
     color: red;
-    font-size: 200px;
+    font-size: 130px;
 }
 
 .o::after {
     content: 'o';
     color: blue;
-    padding: 5px;
-    font-size: 125px;
+    font-size: 130px;
 }
 
+.won::after {
+    color: darkgoldenrod;
+}
 
 
 /* 

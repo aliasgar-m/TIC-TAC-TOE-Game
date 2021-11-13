@@ -1,27 +1,32 @@
-// HTML variables
+// computer not winning and move -> could be based on the logic of the other
+// game part check into it
+
+// HTML Elements
+const returnDiv = document.querySelector('.return');
+const summaryDiv = document.querySelector('.summary');
 const resetDiv = document.querySelector('.reset');
 const cellDivs = document.querySelectorAll('.game-cell');
-const summaryDiv = document.querySelector('.summary');
-const returnDiv = document.querySelector('.return');
-// const playerScore = document.querySelector('.player-score');
-// const computerScore = document.querySelector('.com-score');
+const playerScore = document.querySelector('.player-score');
+const computerScore = document.querySelector('.computer-score');
+const drawScore = document.querySelector('.draws');
+const totalGames = document.querySelector('.total-games');
 
 var game = {
+    playerTurn: true,
+    gameIsLive: true,
+    player: 'x',
+    computer: 'o',
+    gameBoard: [' ',' ',' ',' ',' ',' ',' ',' ',' '],
     scorePlayer: 0,
     scoreComputer: 0,
-    Player: 'x',
-    Computer: 'o',
-    gameIsLive: true,
-    playerTurn: true,
-    playerStarts: true,
-    gameBoard: [' ',' ',' ',' ',' ',' ',' ',' ',' '],
+    scoreDraw: 0,
+    gamesTotal: 0,
 }
-
 
 
 //functions
 const handleReturn = (e) => {
-    history.back()
+    history.back();
 }
 
 const handleSummary = (e) => {
@@ -29,165 +34,175 @@ const handleSummary = (e) => {
     document.getElementById("overlay").style.pointerEvents = "all";
 }
 
-const handleExitSummary = (e) => {
+const exitSummary = (e) => {
     document.getElementById("overlay").style.display = "none";
 }
 
-// game transition logic
+const handleReset = (e) => {
+    for (const cellDiv of cellDivs) {
+        cellDiv.classList.remove('x');
+        cellDiv.classList.remove('o');
+        cellDiv.classList.remove('won');
+    }
+    game['gameIsLive'] = true;
+    playerScore.innerHTML = `Player Score: ${game['scorePlayer']}`;
+    computerScore.innerHTML = `Computer Score: ${game['scoreComputer']}`;
+    drawScore.innerHTML = `Draws: ${game['scoreDraw']}`;
+    totalGames.innerHTML = `Total Games Played: ${game['gamesTotal']}`;
+    resetBoard();
+
+    // replace with the one who wins will start
+    game['playerTurn'] = true;
+}
+
+const resetBoard = () => {
+    game['gameBoard'] = [' ',' ',' ',' ',' ',' ',' ',' ',' ']
+}
+
 const handleCellClick = (e) => {
     const classList = e.target.classList;
     const pos = classList[1]
-    const cellNo = positionToIndex(pos)
-    
-    // Return if cell is already occupied or game is not live
-    if(!game['gameIsLive'] || classList[2] == game['Player'] || classList[2] == game['Computer']) {
+    const cellNo = getIndexCell(pos)
+
+    if(classList[2] == 'x' || classList[2] == 'o') {
         return;
-    }
-    
-    if (game['playerTurn']) {
-        classList.add(game['Player']);
-        game['gameBoard'][cellNo] = game['Player']
-        game['playerTurn'] = !game['playerTurn']
-        checkGameStatus()
     }
 
     if(!game['gameIsLive']) {
+        console.log(game['gameIsLive'])
         return;
     }
 
-    //Make computer move
-    calculateMove()
+    if (game['playerTurn'] == true) {
+        classList.add(game['player'])
+        game['gameBoard'][cellNo] = game['player']
+        game['playerTurn'] = false
+        checkGameStatus()
+    }
+    else {
+        // calculateMove()
+        classList.add(game['computer'])
+        game['gameBoard'][cellNo] = game['computer']
+        game['playerTurn'] = true
+        checkGameStatus()
+    }
+    console.log(classList);
 }
 
-// Returns index based on class of cell
-const positionToIndex = (pos) => {
+const getIndexCell = (pos) => {
     if(pos == 'top-left') {
-        return 0 }
-    else if(pos == 'top-mid') {
-        return 1 }
-    else if(pos == 'top-right') {
-        return 2 }
-    else if(pos == 'mid-left') {
-        return 3 }
-    else if(pos == 'mid-mid') {
-        return 4 }
-    else if(pos == 'mid-right') {
-        return 5 }
-    else if(pos == 'bot-left') {
-        return 6 }
-    else if(pos == 'bot-mid') {
-        return 7 }
-    else if(pos == 'bot-right') {
-        return 8 }
+        return 0; }
+    if(pos == 'top-center') {
+        return 1; }
+    if(pos == 'top-right') {
+        return 2; }
+    if(pos == 'middle-left') {
+        return 3; }
+    if(pos == 'middle-center') {
+        return 4; }
+    if(pos == 'middle-right') {
+        return 5; }
+    if(pos == 'bottom-left') {
+        return 6; }
+    if(pos == 'bottom-center') {
+        return 7; }
+    if(pos == 'bottom-right') {
+        return 8; }
 }
 
-//Check if game is won or tied
 const checkGameStatus = () => {
     const topLeft = cellDivs[0].classList[2];
-    const topMid = cellDivs[1].classList[2];
+    const topCent = cellDivs[1].classList[2];
     const topRight = cellDivs[2].classList[2];
     const midLeft = cellDivs[3].classList[2];
-    const midMid = cellDivs[4].classList[2];
+    const midCent = cellDivs[4].classList[2];
     const midRight = cellDivs[5].classList[2];
     const botLeft = cellDivs[6].classList[2];
-    const botMid = cellDivs[7].classList[2];
+    const botCent = cellDivs[7].classList[2];
     const botRight = cellDivs[8].classList[2];
 
     //Horizontal Win
-    if(topLeft && topLeft == topMid && topLeft == topRight ) {
+    if(topLeft && topLeft == topCent && topLeft == topRight ) {
         handleWin(topLeft,0,1,2);
-        return; }
-    else if(midLeft && midLeft == midMid && midLeft == midRight ) {
+        return;
+    }
+    else if(midLeft && midLeft == midCent && midLeft == midRight ) {
         handleWin(midLeft,3,4,5);
-        return; }
-    else if(botLeft && botLeft == botMid && botLeft == botRight ) {
+        return;
+    }
+    else if(botLeft && botLeft == botCent && botLeft == botRight ) {
         handleWin(botLeft,6,7,8);
-        return; }
+        return;
+    }
 
     //Vertical Win
     else if(topLeft && topLeft == midLeft && topLeft == botLeft ) {
         handleWin(topLeft,0,3,6);
-        return; }
-    else if(topMid && topMid == midMid && topMid == botMid ) {
-        handleWin(topMid,1,4,7);
-        return; }
+        return;
+    }
+    else if(topCent && topCent == midCent && topCent == botCent ) {
+        handleWin(topCent,1,4,7);
+        return;
+    }
     else if(topRight && topRight == midRight && topRight == botRight ) {
         handleWin(topRight,2,5,8);
-        return; }
+        return;
+    }
 
     //Diagonal Win
-    if(topLeft && topLeft == midMid && topLeft == botRight ) {
+    if(topLeft && topLeft == midCent && topLeft == botRight ) {
         handleWin(topLeft,0,4,8);
-        return; }
-    if(topRight && topRight == midMid && topRight == botLeft ) {
+        return;
+    }
+    if(topRight && topRight == midCent && topRight == botLeft ) {
         handleWin(topRight,2,4,6);
-        return; }
+        return;
+    }
     
     // Tie
     if(!boardEmpty()) {
-        handleTie() }
+        handleTie()
+    }
 }
 
 // Update color of winning combination and scores
-const handleWin = (mark,cell1, cell2, cell3) => {
+const handleWin = (mark, cell1, cell2, cell3) => {
     game['gameIsLive'] = false;
     cellDivs[cell1].classList.add('won')
     cellDivs[cell2].classList.add('won')
     cellDivs[cell3].classList.add('won')
 
-    if(game['Player'] == mark) {
-        game['scorePlayer'] = game['scorePlayer'] + 1 }
+    if(mark == 'x') {
+        game['scorePlayer'] = game['scorePlayer'] + 1;
+        game['gamesTotal'] = game['gamesTotal'] + 1;
+    }
     else {
-        game['scoreComputer'] = game['scoreComputer'] +  1 }
+        game['scoreComputer'] = game['scoreComputer'] +  1;
+        game['gamesTotal'] = game['gamesTotal'] + 1;
+    }
 }
 
 // Returns true if board is empty 
 const boardEmpty = () => {
     for (const cell of game['gameBoard']) {
         if (cell == ' ') {
-            return true }
+            return true
+        }
     }
     return false
 }
 
 const handleTie = () => {
-    //update tie value here
     game['gameIsLive'] = false;
+    game['scoreDraw'] = game['scoreDraw'] + 1;
+    game['gamesTotal'] = game['gamesTotal'] + 1;
 }
 
-// Send a request to calculate computer move
-const calculateMove = () => {
-    const data = JSON.stringify({'board':game['gameBoard'], 'computer':game['Computer'], 'player':game['Player']})
-    const xhr = new XMLHttpRequest()
-    xhr.open('POST', '/play/move')
-    xhr.setRequestHeader("Content-Type","application/json");
-    xhr.onreadystatechange = comMove
-    xhr.send(data)
-}
-
-// Update the board according to response
-function comMove() {
-    if(this.readyState == 4 && this.status == 200) {      
-        response = JSON.parse(this.responseText)
-        cellNo = response['computerMove']
-        console.log(cellNo)
-        if(cellNo == -1) {
-            return;
-        }
-        const classList = cellDivs[cellNo].classList
-        classList.add(game['Computer']);
-        game['gameBoard'][cellNo] = game['Computer']
-        game['playerTurn'] = !game['playerTurn']
-        checkGameStatus()
-    }
-}
-
-
-//event listeners
+//event handlers
 returnDiv.addEventListener('click', handleReturn);
 summaryDiv.addEventListener('click', handleSummary);
-window.addEventListener('mouseup', handleExitSummary);
-// resetDiv.addEventListener('click', handleReset);
+window.addEventListener('mouseup', exitSummary);
+resetDiv.addEventListener('click', handleReset);
 
 for (const cellDiv of cellDivs) {
     cellDiv.addEventListener('click',handleCellClick);
