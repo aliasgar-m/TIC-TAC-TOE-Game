@@ -1,4 +1,3 @@
-import random
 from copy import copy
 import numpy as np
 
@@ -20,7 +19,7 @@ class Environment:
                         "Player 2 wins: ":0,
                         "Draw: ":0}
 
-    def check_draw(self):
+    def check_draw(self) -> bool:
         curr_state = self.get_current_state()
         if len(self.get_available_actions(state=curr_state)) == 0:
             return True
@@ -45,7 +44,7 @@ class Environment:
     def get_state_action_hash(self, s_h, a_h) -> int:
         return s_h * a_h
 
-    def get_reward(self, p_act, n_s, n_acts, sym):
+    def get_reward(self, p_act, n_s, n_acts, sym) -> int:
         if self.check_winner(sym, n_s) is True:
             return 1
         if self.missed_block_move(n_s, n_acts, sym) is True:
@@ -54,7 +53,7 @@ class Environment:
             return -100
         return 0
 
-    def missed_block_move(self, n_s, n_acts, sym):
+    def missed_block_move(self, n_s, n_acts, sym) -> bool:
         if sym == 1:
             sym = 2
         else:
@@ -71,7 +70,7 @@ class Environment:
                 return True
         return False
 
-    def missed_winning_move(self, p_act, sym):
+    def missed_winning_move(self, p_act, sym) -> bool:
         curr_state = self.get_current_state()
         av_actions = self.get_available_actions(state=curr_state).tolist()
 
@@ -88,34 +87,34 @@ class Environment:
                     return True
         return False
 
-    def check_winner(self, sym, state=None):
+    def check_winner(self, sym, state=None) -> bool:
         if self.check_row(sym, curr_state=state) or \
         self.check_col(sym, curr_state=state) or \
         self.check_diagonal(sym, curr_state=state):
             return True
         return False
 
-    def check_row(self, sym, curr_state=None):
+    def check_row(self, sym, curr_state=None) -> bool:
         if np.any(np.all(curr_state == sym, axis=1)):
             return True
         return False
 
-    def check_col(self, sym, curr_state=None):
+    def check_col(self, sym, curr_state=None) -> bool:
         if np.any(np.all(curr_state == sym, axis=0)):
             return True
         return False
 
-    def check_diagonal(self, sym, curr_state=None):
+    def check_diagonal(self, sym, curr_state=None) -> bool:
         if np.all(np.diagonal(curr_state) == sym) or \
             np.all(np.fliplr(curr_state).diagonal() == sym):
             return True
         return False
 
-    def reset_environment(self):
+    def reset_environment(self) -> None:
         self.board = np.zeros([self.rows, self.columns])
         self.end_game = False
 
-    def update_summary(self, draw=False, player=None):
+    def update_summary(self, draw=False, player=None) -> None:
         if draw:
             self.summary["Games Played: "] += 1
             self.summary["Draw: "] += 1

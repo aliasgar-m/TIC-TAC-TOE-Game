@@ -1,30 +1,21 @@
-import numpy as np
+import pickle
 from tqdm import tqdm
 from src.environment import Environment
 from src.agent import Agent
-import pickle
 
 
-def main():
+def main() -> None:
     game = Environment()
     player_1 = Agent(env=game, sym=1)
     player_2 = Agent(env=game, sym=2)
-    iterations = 50
+    iterations = 500000
     current_player = player_1
     previous_player = None
-    # print("Starting State: ")
-    # print(game.board)
-    # print()
 
     for i in tqdm(range(iterations)):
         while game.end_game is False:
 
             current_player.step()
-            # print("Current Player: ", current_player.symbol)
-            # print("Action taken: ", current_player.action_history[-1])
-            # print("New State: ")
-            # print(game.board)
-            # print()
             game.end_game = game.check_winner(sym=current_player.symbol, state=game.board)
             previous_player = current_player
 
@@ -54,7 +45,7 @@ def main():
     else:
         save_q_values(agent=player_2, filename='Q_values.txt')
 
-def save_q_values(agent:Agent, filename:str):
+def save_q_values(agent:Agent, filename:str) -> None:
     with open(filename, 'wb') as dict_items_save:
         pickle.dump(agent.trainer.q_values, dict_items_save)
 

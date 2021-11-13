@@ -1,5 +1,4 @@
 import random
-import numpy as np
 from .environment import Environment
 
 
@@ -47,7 +46,7 @@ class Trainer:
             s_a_q_values.append(self.get_q_value(state_hash, action_hash))
         return max(s_a_q_values), s_a_q_values
 
-    def get_best_action(self, state, actions):
+    def get_best_action(self, state, actions) -> int:
         max_q_value, state_action_q_value_list = self.get_max_q(state, actions)
 
         if all(q_val == 0.0 for q_val in state_action_q_value_list):
