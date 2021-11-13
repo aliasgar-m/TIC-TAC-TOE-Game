@@ -27,7 +27,7 @@ class Agent:
 
     def get_action_to_perform(self, c_state, actions) -> List:
         search_probability = round(random.uniform(0,1),1)
-        if self.trained == False:
+        if self.trained is False:
             if search_probability <= self.epsilon:
                 action = self.get_explore_action(a_list=actions)
             else:
