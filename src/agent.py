@@ -7,8 +7,9 @@ from .trainer import Trainer
 
 
 class Agent:
-    def __init__(self, env:Environment, sym:int=None) -> None:
+    def __init__(self, env:Environment, sym:int=None, pre_trained=False) -> None:
         self.trainer = Trainer(env=env, sym=sym)
+        self.trained = pre_trained
         self.env = env
         self.symbol = sym
         self.action_history = []
@@ -26,8 +27,11 @@ class Agent:
 
     def get_action_to_perform(self, c_state, actions) -> List:
         search_probability = round(random.uniform(0,1),1)
-        if search_probability <= self.epsilon:
-            action = self.get_explore_action(a_list=actions)
+        if self.trained == False:
+            if search_probability <= self.epsilon:
+                action = self.get_explore_action(a_list=actions)
+            else:
+                action = self.get_exploit_action(c_s=c_state, a_list=actions)
         else:
             action = self.get_exploit_action(c_s=c_state, a_list=actions)
         return action
