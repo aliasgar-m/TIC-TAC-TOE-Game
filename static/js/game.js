@@ -212,7 +212,6 @@ const calculateComputerMove = () => {
     if (game['gameIsLive'] == false) {
         return;
     }
-
     const data = JSON.stringify({'board':game['gameBoard'], 'computer':game['computer'], 'player':game['player']})
     const xhr = new XMLHttpRequest()
     xhr.open('POST', '/play/move')
