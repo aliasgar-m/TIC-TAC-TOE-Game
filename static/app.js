@@ -1,6 +1,3 @@
-// computer not winning and move -> could be based on the logic of the other
-// game part check into it
-
 // HTML Elements
 const returnDiv = document.querySelector('.return');
 const summaryDiv = document.querySelector('.summary');
@@ -79,16 +76,11 @@ const handleCellClick = (e) => {
         game['playerTurn'] = false
         checkGameStatus()
     }
-    else {
-        // calculateMove()
-        classList.add(game['computer'])
-        game['gameBoard'][cellNo] = game['computer']
-        game['playerTurn'] = true
-        checkGameStatus()
-    }
-    console.log(classList);
+
+    calculateComputerMove()
 }
 
+// Returns index of cell clicked
 const getIndexCell = (pos) => {
     if(pos == 'top-left') {
         return 0; }
@@ -110,6 +102,7 @@ const getIndexCell = (pos) => {
         return 8; }
 }
 
+// Check for wins
 const checkGameStatus = () => {
     const topLeft = cellDivs[0].classList[2];
     const topCent = cellDivs[1].classList[2];
@@ -192,6 +185,7 @@ const boardEmpty = () => {
     return false
 }
 
+// Update Tie function
 const handleTie = () => {
     game['gameIsLive'] = false;
     game['scoreDraw'] = game['scoreDraw'] + 1;
@@ -206,4 +200,36 @@ resetDiv.addEventListener('click', handleReset);
 
 for (const cellDiv of cellDivs) {
     cellDiv.addEventListener('click',handleCellClick);
+}
+
+// Send a request to calculate computer move
+const calculateComputerMove = () => {
+
+    if (game['gameIsLive'] == false) {
+        return;
+    }
+
+    const data = JSON.stringify({'board':game['gameBoard'], 'computer':game['computer'], 'player':game['player']})
+    const xhr = new XMLHttpRequest()
+    xhr.open('POST', '/play/move')
+    xhr.setRequestHeader("Content-Type","application/json");
+    xhr.onreadystatechange = comMove
+    xhr.send(data)
+}
+
+// Update the board according to response
+function comMove() {
+    if(this.readyState == 4 && this.status == 200) {      
+        response = JSON.parse(this.responseText)
+        cellNo = response['computerMove']
+        console.log(cellNo)
+        if(cellNo == -1) {
+            return;
+        }
+        const classList = cellDivs[cellNo].classList
+        classList.add(game['computer']);
+        game['gameBoard'][cellNo] = game['computer']
+        game['playerTurn'] = !game['playerTurn']
+        checkGameStatus()
+    }
 }
