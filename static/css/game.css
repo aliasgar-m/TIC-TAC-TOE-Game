@@ -25,6 +25,12 @@ body {
     font-size: 20px;
     text-align: top;
     justify-content:space-evenly;
+    height: 40px;
+}
+
+.status {
+    color: white;
+    position: fixed;
 }
 
 .reset:hover, .summary:hover, .return:hover {

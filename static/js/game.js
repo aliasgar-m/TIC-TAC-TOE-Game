@@ -2,6 +2,7 @@
 const returnDiv = document.querySelector('.return');
 const summaryDiv = document.querySelector('.summary');
 const resetDiv = document.querySelector('.reset');
+const statusDiv = document.querySelector('.status');
 const cellDivs = document.querySelectorAll('.game-cell');
 const playerScore = document.querySelector('.player-score');
 const computerScore = document.querySelector('.computer-score');
@@ -46,6 +47,7 @@ const handleReset = (e) => {
     computerScore.innerHTML = `Computer Score: ${game['scoreComputer']}`;
     drawScore.innerHTML = `Draws: ${game['scoreDraw']}`;
     totalGames.innerHTML = `Total Games Played: ${game['gamesTotal']}`;
+    statusDiv.innerHTML = `Status`;
     resetBoard();
 
     // replace with the one who wins will start
@@ -173,6 +175,7 @@ const handleWin = (mark, cell1, cell2, cell3) => {
         game['scoreComputer'] = game['scoreComputer'] +  1;
         game['gamesTotal'] = game['gamesTotal'] + 1;
     }
+    statusDiv.innerHTML = `${mark} has won!`;
 }
 
 // Returns true if board is empty 
@@ -190,6 +193,7 @@ const handleTie = () => {
     game['gameIsLive'] = false;
     game['scoreDraw'] = game['scoreDraw'] + 1;
     game['gamesTotal'] = game['gamesTotal'] + 1;
+    statusDiv.innerHTML = `Game Tied`;
 }
 
 //event handlers
