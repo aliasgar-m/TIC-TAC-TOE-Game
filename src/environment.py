@@ -60,10 +60,10 @@ class Environment:
             sym = 1
 
         for each_action in n_acts:
-            x = each_action[0]
-            y = each_action[1]
+            x_val = each_action[0]
+            y_val = each_action[1]
             n_s_copy = copy(n_s)
-            n_s_copy[x][y] = n_s_copy[x][y] + sym
+            n_s_copy[x_val][y_val] = n_s_copy[x_val][y_val] + sym
             win_bool = self.check_winner(sym, n_s_copy)
 
             if win_bool is True:
@@ -77,10 +77,10 @@ class Environment:
         av_actions = np.array(av_actions)
         for each_action in av_actions:
             if each_action.tolist() != p_act.tolist():
-                x = each_action[0]
-                y = each_action[1]
+                x_val = each_action[0]
+                y_val = each_action[1]
                 n_s_copy = copy(curr_state)
-                n_s_copy[x][y] = n_s_copy[x][y] + sym
+                n_s_copy[x_val][y_val] = n_s_copy[x_val][y_val] + sym
                 win_bool = self.check_winner(sym, n_s_copy)
 
                 if win_bool is True:

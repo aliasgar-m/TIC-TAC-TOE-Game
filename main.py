@@ -12,7 +12,7 @@ def main() -> None:
     current_player = player_1
     previous_player = None
 
-    for i in tqdm(range(iterations)):
+    for _ in tqdm(range(iterations)):
         while game.end_game is False:
 
             current_player.step()
