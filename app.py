@@ -1,6 +1,6 @@
-from flask import Flask, render_template, url_for, jsonify, request
 import os
-from game import Game
+from flask import Flask, render_template, jsonify, request
+from game import Singleplayer
 
 template_dir = os.path.abspath('./templates')
 app = Flask(__name__, template_folder=template_dir)
@@ -26,17 +26,16 @@ def about_page(name=None):
     return render_template('about_page.html', name=name)
 
 
-@app.route('/play/move', methods=['POST'])
+@app.route('/play/move', methods=['POST','GET'])
 def move():
     state = request.get_json()
 
-    game = Game()
+    game = Singleplayer()
     game.board = state.get('board')
     game.player = state.get('player')
     game.computer = state.get('computer')
 
     move = game.calculate_move()
-    # print(move)
     return jsonify(computerMove=str(move))
 
 if __name__ == "__main__":
