@@ -2,7 +2,6 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    
 }
 
 body {
@@ -10,57 +9,27 @@ body {
     color: goldenrod;
     margin: 0;
     font-family: 'Courier New';
-    display: flex;
     justify-content: center;
 }
 
 .return {
     justify-content: left;
     margin-left: 50px;
-    display: flex;
+    display: inline-flex;
     font-size: 50px;
     color: goldenrod;
 }
 
-.container {
-    background:white;
-    margin: 50px;
-    padding: 25px;
-    border-radius: 25px;
-    justify-content: center;
-    align-items: center;
-}
-
 .status-summary-reset {
-    display: flex;
+    display: flex; 
     font-size: 20px;
-    text-align: center;
+    text-align: top;
     justify-content:space-evenly;
 }
 
 .reset:hover, .summary:hover, .return:hover {
     cursor: pointer;
     color: white;
-}
-
-.game-grid {
-    background: black;
-    display:grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    grid-gap: 10px;
-    margin-top: 25px;
-}
-
-.game-cell {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 130px;
-    width: 130px;
-    cursor: pointer;
-    background: white;
-    font-family: 'Hurricane', cursive;
 }
 
 #overlay {
@@ -72,12 +41,12 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgb(0, 0, 0, .5);
+    background-color: rgba(0, 0, 0, 0.9);
     pointer-events: none;
     z-index: 2;
 }
 
-#text{
+#text {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -85,75 +54,52 @@ body {
     color: white;
     transform: translate(-50%,-50%);
     -ms-transform: translate(-50%,-50%);
-  }
+}
+
+.container {
+    background: black;
+    margin: 50px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.game-grid {
+    background: goldenrod;
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-gap: 10px;
+}
+
+.game-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 130px;
+    width: 130px;
+    cursor: pointer;
+    background: black;
+    font-family: 'Hurricane', cursive;
+}
 
 .x, .o {
     cursor: default;
-  }
+}
 
 .x::after {
-    content: '×';
+    content: 'X';
     color: red;
     font-size: 130px;
 }
 
 .o::after {
-    content: 'o';
+    content: 'O';
     color: blue;
+    margin-right: 30px;
     font-size: 130px;
 }
 
 .won::after {
-    color: darkgoldenrod;
+    color: white;
 }
-
-
-/* 
-
-.player-score, .com-score {
-    font-size: 17px;
-}
-
-.game-grid {
-    display: grid;
-    background-color: darkgoldenrod;
-    grid-template-rows: repeat(3, 1fr);
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 15px;
-    margin-top: 50px;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* .x::after {
-    content: 'X';
-    color: red;
-    font-size: 100px;
-} */
-/* 
-
-/* 
-
-
-
-
-
-
-
- */
